@@ -1,17 +1,17 @@
 /* -*- c++ -*- */
-/* 
+/*
  * Copyright 2015,2016 Free Software Foundation, Inc.
- * 
+ *
  * This is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 3, or (at your option)
  * any later version.
- * 
+ *
  * This software is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this software; see the file COPYING.  If not, write to
  * the Free Software Foundation, Inc., 51 Franklin Street,
@@ -382,7 +382,7 @@ for (int row = 0; row < ROWS; row++) { \
     } \
     im++; \
   } \
-} 
+}
 
     void
     dvb_ldpc_bb_impl::ldpc_lookup_generate(void)
@@ -636,6 +636,9 @@ for (int row = 0; row < ROWS; row++) { \
         for (int j = 0; j < ldpc_encode.table_length; j++) {
           p[ldpc_encode.p[j]] ^= d[ldpc_encode.d[j]];
         }
+        for (int j = 1; j < plen; j++) {
+          p[j] ^= p[j-1];
+        }
         if (P != 0) {
           puncture = 0;
           for (int j = 0; j < plen; j += P) {
@@ -652,9 +655,6 @@ for (int row = 0; row < ROWS; row++) { \
             }
           }
           p = &out[nbch];
-        }
-        for (int j = 1; j < (plen - Xp); j++) {
-          p[j] ^= p[j-1];
         }
         if (signal_constellation == MOD_128APSK) {
           for (int j = 0; j < 6; j++) {
