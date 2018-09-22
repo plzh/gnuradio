@@ -86,11 +86,11 @@ namespace gr {
         case MOD_8PSK:
           mod = 3;
           rows = frame_size / mod;
-          /* 210 */
+          /* 012 */
           if (rate == C3_5) {
-            rowaddr0 = rows * 2;
+            rowaddr0 = 0;
             rowaddr1 = rows;
-            rowaddr2 = 0;
+            rowaddr2 = rows * 2;
           }
           /* 102 */
           else if (rate == C25_36 || rate == C13_18 || rate == C7_15 || rate == C8_15 || rate == C26_45) {
@@ -98,11 +98,11 @@ namespace gr {
             rowaddr1 = 0;
             rowaddr2 = rows * 2;
           }
-          /* 012 */
+          /* 210 */
           else {
-            rowaddr0 = 0;
+            rowaddr0 = rows * 2;
             rowaddr1 = rows;
-            rowaddr2 = rows * 2;
+            rowaddr2 = 0;
           }
           set_output_multiple(rows);
           packed_items = rows;
